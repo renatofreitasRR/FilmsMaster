@@ -37,6 +37,17 @@ export const Container = styled.div`
             display:flex;
             flex-direction: column;
 
+            > h1{
+                font-family: Roboto;
+
+                color: #fff;
+
+                font-weight: bold;
+                font-size: 1.8em;
+                line-height: 42px;
+                letter-spacing: 0.08em;
+            }
+
             > span{
                 margin-top: 5px;
                 font-weight: 500;
@@ -124,17 +135,6 @@ export const AddButton = styled.div`
     
 `
 
-export const Title = styled.h1`
-    font-family: Roboto;
-
-    color: #fff;
-
-    font-weight: bold;
-    font-size: 2em;
-    line-height: 42px;
-    letter-spacing: 0.08em;
-`
-
 export const Divisor = styled.div`
     background-color:var(--placeholder-and-separator);
 
@@ -206,6 +206,8 @@ export const Header = styled.div`
     > .notify{
         position: relative;
 
+        display: block;
+
         &::after{
             display: flex;
             align-items: center;
@@ -230,7 +232,7 @@ export const Header = styled.div`
         }
     }
 `;
-export const DivInput = styled.div`
+export const DivInput = styled.form`
     background-color: var(--secondary);
 
     display:flex;
@@ -240,41 +242,43 @@ export const DivInput = styled.div`
     height:32px;
 
     cursor:pointer;
+
+    > input{
+        background-color:var(--secondary);
+        color: var(--placeholder-and-separator);
+
+        font-size: 1em;
+        font-weight: bold;
+
+        padding: 9px; 
+        width: 100%;
+        height: 32px;
+
+        &::placeholder{
+            color: #FCD0CD;
+        }
+
+        cursor:pointer;
+    }
+
+    > button{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        background-color: var(--button);
+
+        width: 56px;
+        height: 32px;
+
+        cursor:pointer;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
 `;
 
-export const SearchInput = styled.input`
-    background-color:var(--secondary);
-    color: var(--placeholder-and-separator);
-
-    font-size: 1em;
-    font-weight: bold;
-
-    padding: 9px; 
-    width: 100%;
-    height: 32px;
-
-    &::placeholder{
-        color: #FCD0CD;
-    }
-
-    cursor:pointer;
-`
-export const SearchButton = styled.button`
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background-color: var(--button);
-
-    width: 56px;
-    height: 32px;
-
-    cursor:pointer;
-
-    &:hover {
-        opacity: 0.5;
-    }
-`
 export const HambuerguerMenuIcon = styled(Menu)`
     color: var(--title-and-input);
 
@@ -350,30 +354,35 @@ export const SideBarMenu = styled.div`
             }
 
             > span{
+                color: #fff;
                 font-size: 16px;
             }
             
         }
+
+
+        > .selector-div{
+            background-color: var(--favorites-and-categories);
+
+            width: 50px; 
+            height: 4px;
+
+            margin-right: auto;
+        }
+
+        > span{
+                color: var(--category);
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 16px;
+                letter-spacing: 0.08em;
+
+            }
     }
 
-    
+        
+ 
    
 `;
-export const Selector = styled.div`
-    background-color: var(--favorites-and-categories);
 
-    width: 50px; 
-    height: 4px;
-
-    margin-right: auto;
-
-`;
-export const CategoryName = styled.span`
-    color: var(--category);
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 16px;
-    letter-spacing: 0.08em;
-
-`;
 

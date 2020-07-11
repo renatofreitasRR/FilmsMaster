@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FormEvent } from 'react';
 
 import {
     Container,
-    Title,
     PlayButton,
     AddButton,
     Divisor,
     Header,
     DivInput,
-    SearchInput,
     HambuerguerMenuIcon,
     HeartFavoriteIcon,
-    SearchButton,
     SearchIcon,
     MovieList,
     SideBarMenu,
-    Selector,
-    CategoryName,
 } from './styles';
 
+import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
 
@@ -45,11 +41,15 @@ const BannerMovie: React.FC = () => {
     const [titleMovie, setTitleMovie] = useState('');
     const [openMenu, setOpenMenu] = useState(false);
     const [genres, setGenres] = useState<Genres[]>([]);
+    const [searchMovies, setSearchMovies] = useState('');
+    const [messageError, setMessageError] = useState('');
 
     useEffect(() => {
         api.get(`discover/movie?api_key=${apiKey}&with_genres=28&language=pt-BR`)
             .then(response => {
                 setFilms(response.data.results);
+                setBackgroundMovie('https://image.tmdb.org/t/p/original' + response.data.results[0].backdrop_path);
+                setTitleMovie(response.data.results[0].title);
             })
     }, []);
 
@@ -62,16 +62,43 @@ const BannerMovie: React.FC = () => {
     }, []);
 
 
-    function handleSelectedMovie(backdrop_path: string, title: string) {
-        setBackgroundMovie('https://image.tmdb.org/t/p/original' + backdrop_path);
+    function handleSelectedMovie(backdrop_path: string, title: string, poster_path: string) {
+
+        if (backdrop_path === 'null') {
+            setBackgroundMovie(`https://image.tmdb.org/t/p/original${poster_path}`);
+        } else {
+            setBackgroundMovie(`https://image.tmdb.org/t/p/original${backdrop_path}`);
+        }
+
         setTitleMovie(`${title}`);
     }
 
     function handleSelectedCategory(categoryId: number) {
+        setOpenMenu(false);
+
         api.get(`discover/movie?api_key=${apiKey}&with_genres=${categoryId}&language=pt-BR`)
             .then(response => {
                 setFilms(response.data.results);
+                setBackgroundMovie('https://image.tmdb.org/t/p/original' + response.data.results[0].backdrop_path);
+                setTitleMovie(response.data.results[0].title);
             });
+    }
+
+    async function handleSearchMovie(event: FormEvent<HTMLFormElement>): Promise<void> {
+        event.preventDefault();
+
+        api.get(`search/movie?query=${searchMovies}&api_key=${apiKey}&language=pt-BR`)
+            .then(response => {
+                setMessageError('');
+
+                if (response.data.results.length > 0) {
+                    setFilms(response.data.results);
+                } else {
+                    setMessageError('Filme não encontrado');
+                }
+
+            })
+
     }
 
     return (
@@ -85,16 +112,23 @@ const BannerMovie: React.FC = () => {
                     }
                     className={openMenu ? 'rotate' : ''}
                 />
-                <DivInput>
+                <DivInput onSubmit={handleSearchMovie}>
                     <label htmlFor="search" hidden></label>
-                    <SearchInput type="text" id="search" placeholder="Pesquisar" />
-                    <SearchButton>
+                    <input
+                        type="text"
+                        id="search"
+                        placeholder="Pesquisar"
+                        value={searchMovies}
+                        onChange={e => setSearchMovies(e.target.value)}
+                    />
+                    <button>
                         <SearchIcon />
-                    </SearchButton>
+                    </button>
+                    {messageError}
                 </DivInput>
-                <div className="notify">
+                <Link to="/favorites" className="notify">
                     <HeartFavoriteIcon />
-                </div>
+                </Link>
             </Header>
             {openMenu ?
                 <SideBarMenu>
@@ -104,24 +138,24 @@ const BannerMovie: React.FC = () => {
                             className="category"
                             onClick={() => handleSelectedCategory(Number(genre.id))}
                         >
-                            <Selector />
-                            <CategoryName>{genre.name}</CategoryName>
+                            <div className="selector-div"></div>
+                            <span>{genre.name}</span>
                         </div>
                     ))}
                 </SideBarMenu> : (
                     <>
                         <Container>
-                            <div className="background" style={{ backgroundImage: `url(${backgroundMovie})` }}>
+                            <header className="background" style={{ backgroundImage: `url(${backgroundMovie})` }}>
                                 <div className="title">
-                                    <Title>{titleMovie}</Title>
+                                    <h1>{titleMovie}</h1>
                                     <span>Descrição</span>
                                     <Divisor />
                                 </div>
-                            </div>
+                            </header>
                             <div className="buttons">
                                 <PlayButton>
                                     Play
-                            </PlayButton>
+                                </PlayButton>
                                 <AddButton>
                                     Add <span>+</span>
                                 </AddButton>
@@ -131,9 +165,9 @@ const BannerMovie: React.FC = () => {
                             {films.map(film => (
                                 <div
                                     key={film.id}
-                                    onClick={() => handleSelectedMovie(String(film.backdrop_path), String(film.title))}
+                                    onClick={() => handleSelectedMovie(String(film.backdrop_path), String(film.title), String(film.poster_path))}
                                 >
-                                    <img src={film.poster_path ? `https://image.tmdb.org/t/p/w300${film.poster_path}` : `https://image.tmdb.org/t/p/w300${film.backdrop_path}`} alt={film.title} />
+                                    <img src={`https://image.tmdb.org/t/p/w300${film.poster_path}`} alt={film.title} />
                                 </div>
                             )
                             )}
