@@ -124,7 +124,7 @@ const BannerMovie: React.FC = () => {
                     <button>
                         <SearchIcon />
                     </button>
-                    {messageError}
+                    <span>{messageError}</span>
                 </DivInput>
                 <Link to="/favorites" className="notify">
                     <HeartFavoriteIcon />
@@ -162,14 +162,14 @@ const BannerMovie: React.FC = () => {
                             </div>
                         </Container>
                         <MovieList>
-                            {films.map(film => (
+                            {films.map(film => film.poster_path ? (
                                 <div
                                     key={film.id}
                                     onClick={() => handleSelectedMovie(String(film.backdrop_path), String(film.title), String(film.poster_path))}
                                 >
                                     <img src={`https://image.tmdb.org/t/p/w300${film.poster_path}`} alt={film.title} />
                                 </div>
-                            )
+                            ) : ''
                             )}
                         </MovieList>
                     </>

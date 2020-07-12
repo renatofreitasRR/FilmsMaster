@@ -28,8 +28,6 @@ export const Container = styled.div`
         height:50vh;
         margin-bottom:50px;
 
-        transition: all 1s;
-
         > .title{
             margin: 0 0 0 10px;
             bottom: -50px;
@@ -199,7 +197,7 @@ export const Header = styled.div`
     width: 100vw;
 
     > .rotate{
-        transition: all 0.4s;
+        transition: transform 0.4s;
         transform: rotate(90deg);
     }
 
@@ -243,6 +241,8 @@ export const DivInput = styled.form`
 
     cursor:pointer;
 
+    position: relative;
+
     > input{
         background-color:var(--secondary);
         color: var(--placeholder-and-separator);
@@ -259,6 +259,19 @@ export const DivInput = styled.form`
         }
 
         cursor:pointer;
+    }
+
+    > span{
+        position: absolute;
+
+        color: red;
+
+        font-size: 14px;
+        font-weight: bold;
+
+        right: 56px;
+
+        top: 32px;
     }
 
     > button{
@@ -282,7 +295,6 @@ export const DivInput = styled.form`
 export const HambuerguerMenuIcon = styled(Menu)`
     color: var(--title-and-input);
 
-    transition: all 0.4s;
     transform: rotate(0deg);
 
     width: 30px;
