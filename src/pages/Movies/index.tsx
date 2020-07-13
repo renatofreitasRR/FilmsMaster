@@ -93,6 +93,8 @@ const BannerMovie: React.FC = () => {
 
                 if (response.data.results.length > 0) {
                     setFilms(response.data.results);
+                    setBackgroundMovie('https://image.tmdb.org/t/p/original' + response.data.results[0].backdrop_path);
+                    setTitleMovie(response.data.results[0].title);
                 } else {
                     setMessageError('Filme não encontrado');
                 }

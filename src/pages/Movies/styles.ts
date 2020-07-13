@@ -25,7 +25,7 @@ export const Container = styled.div`
         border-radius: 0px 0px 50px 50px;
 
         width:100%;
-        height:50vh;
+        height:45vh;
         margin-bottom:50px;
 
         > .title{
