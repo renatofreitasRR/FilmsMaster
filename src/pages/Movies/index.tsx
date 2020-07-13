@@ -41,6 +41,7 @@ const BannerMovie: React.FC = () => {
     const [backgroundMovie, setBackgroundMovie] = useState('');
     const [titleMovie, setTitleMovie] = useState('');
     const [openMenu, setOpenMenu] = useState(false);
+    const [idParams, setIdParams] = useState(0);
     const [genres, setGenres] = useState<Genres[]>([]);
     const [searchMovies, setSearchMovies] = useState('');
     const [messageError, setMessageError] = useState('');
@@ -51,6 +52,7 @@ const BannerMovie: React.FC = () => {
                 setFilms(response.data.results);
                 setBackgroundMovie('https://image.tmdb.org/t/p/original' + response.data.results[0].backdrop_path);
                 setTitleMovie(response.data.results[0].title);
+                setIdParams(response.data.results[0].id);
             })
     }, []);
 
@@ -63,7 +65,7 @@ const BannerMovie: React.FC = () => {
     }, []);
 
 
-    function handleSelectedMovie(backdrop_path: string, title: string, poster_path: string) {
+    function handleSelectedMovie(backdrop_path: string, title: string, poster_path: string, id: number) {
 
         if (backdrop_path === 'null') {
             setBackgroundMovie(`https://image.tmdb.org/t/p/original${poster_path}`);
@@ -72,6 +74,7 @@ const BannerMovie: React.FC = () => {
         }
 
         setTitleMovie(`${title}`);
+        setIdParams(id);
     }
 
     function handleSelectedCategory(categoryId: number) {
@@ -82,6 +85,7 @@ const BannerMovie: React.FC = () => {
                 setFilms(response.data.results);
                 setBackgroundMovie('https://image.tmdb.org/t/p/original' + response.data.results[0].backdrop_path);
                 setTitleMovie(response.data.results[0].title);
+                setIdParams(response.data.results[0].id);
             });
     }
 
@@ -96,6 +100,7 @@ const BannerMovie: React.FC = () => {
                     setFilms(response.data.results);
                     setBackgroundMovie('https://image.tmdb.org/t/p/original' + response.data.results[0].backdrop_path);
                     setTitleMovie(response.data.results[0].title);
+                    setIdParams(response.data.results[0].id);
                 } else {
                     setMessageError('Filme não encontrado');
                 }
@@ -151,7 +156,7 @@ const BannerMovie: React.FC = () => {
                             <header className="background" style={{ backgroundImage: `url(${backgroundMovie})` }}>
                                 <div className="title">
                                     <h1>{titleMovie}</h1>
-                                    <Link to="/about">
+                                    <Link to={`/about/${idParams}`}>
                                         <AboutIcon />
                                         Sobre
                                     </Link>
@@ -171,7 +176,7 @@ const BannerMovie: React.FC = () => {
                             {films.map(film => film.poster_path ? (
                                 <div
                                     key={film.id}
-                                    onClick={() => handleSelectedMovie(String(film.backdrop_path), String(film.title), String(film.poster_path))}
+                                    onClick={() => handleSelectedMovie(String(film.backdrop_path), String(film.title), String(film.poster_path), Number(film.id))}
                                 >
                                     <img src={`https://image.tmdb.org/t/p/w300${film.poster_path}`} alt={film.title} />
                                 </div>

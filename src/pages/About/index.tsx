@@ -7,7 +7,7 @@ import {
     Header
 } from './styles';
 
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import api from '../../services/api';
 
@@ -35,14 +35,20 @@ interface Movie {
     title: string;
 }
 
+interface MovieParams {
+    id: string;
+}
+
 const About: React.FC = () => {
 
     const apiKey = "d6ecb4865ebe46ec907e193a6b5c1c19";
 
     const [movie, setMovie] = useState<Movie | null>(null);
 
+    const { params } = useRouteMatch<MovieParams>();
+
     useEffect(() => {
-        api.get(`movie/516486?api_key=${apiKey}&language=pt-BR`)
+        api.get(`movie/${params.id}?api_key=${apiKey}&language=pt-BR`)
             .then(response => {
                 setMovie(response.data);
                 console.log(response.data);
@@ -51,7 +57,7 @@ const About: React.FC = () => {
     return (
         <>
             <Header>
-                <Link to="movies">
+                <Link to="/movies">
                     <ArrowLeft />
                     <span>Voltar</span>
                 </Link>
@@ -66,7 +72,7 @@ const About: React.FC = () => {
                         <small>Data de lançamento: {movie.release_date}</small> <br />
                         <small>Preço de produção: <strong>R$ {movie.budget}</strong></small>
 
-                        <h2>Generos</h2>
+                        <h2>Genêros</h2>
                         <div>
                             {movie.genres?.map(genre => (
                                 <span key={genre.id}>{genre.name}</span>
