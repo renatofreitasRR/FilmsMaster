@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Menu } from 'styled-icons/material-sharp';
 import { Heart } from 'styled-icons/icomoon';
 import { Search } from 'styled-icons/heroicons-solid';
+import { ExclamationOutline } from 'styled-icons/zondicons';
 
 export const Container = styled.div`
         display:flex;
@@ -34,6 +35,20 @@ export const Container = styled.div`
             position: absolute;
             display:flex;
             flex-direction: column;
+
+            > a{
+                color: var(--white);
+                text-decoration: none;
+
+                margin-bottom: 3px;
+
+                display: flex;
+                align-items: center;
+
+                > svg{
+                    margin-right: 5px;
+                }
+            }
 
             > h1{
                 font-family: Roboto;
@@ -311,6 +326,15 @@ export const SearchIcon = styled(Search)`
 
     width: 18px;
     height: 18px;
+
+    cursor: pointer;
+
+`
+export const AboutIcon = styled(ExclamationOutline)` 
+    color: var(--white);
+
+    width: 20px;
+    height: 20px;
 
     cursor: pointer;
 

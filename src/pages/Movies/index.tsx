@@ -12,6 +12,7 @@ import {
     SearchIcon,
     MovieList,
     SideBarMenu,
+    AboutIcon
 } from './styles';
 
 import { Link } from 'react-router-dom';
@@ -150,7 +151,10 @@ const BannerMovie: React.FC = () => {
                             <header className="background" style={{ backgroundImage: `url(${backgroundMovie})` }}>
                                 <div className="title">
                                     <h1>{titleMovie}</h1>
-                                    <span>Descrição</span>
+                                    <Link to="/about">
+                                        <AboutIcon />
+                                        Sobre
+                                    </Link>
                                     <Divisor />
                                 </div>
                             </header>
