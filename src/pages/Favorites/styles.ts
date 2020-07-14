@@ -55,8 +55,8 @@ const icons = css`
 `
 
 export const ArrowLeft = styled(KeyboardArrowLeft)`${icons}`
-export const Trash = styled(TrashBin)`${icons}`
-export const Comment = styled(CommentAdd)`${icons}`
+export const Trash = styled(TrashBin)`${icons}; color: red;`
+export const Comment = styled(CommentAdd)`${icons}; color: #fff;`
 
 export const FavoriteMovies = styled.div`
     height: 100%;
@@ -65,19 +65,23 @@ export const FavoriteMovies = styled.div`
     flex-direction: column;
     align-items: center;
 
+    > img{
+        width: 100%;
+        height: 200px;
+    }
+
     > .movie{
-        background-color: #fff;
+        display: flex;
+        flex-direction: column;
 
-        height: 300px;
-        width: 250px;
-
-        margin-top: 10px;
-
+        margin-bottom: 14px;
+        
         > div{
-            background-color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-            height: 220px;
-            width: 180px;
+            margin-top: 14px;
         }
     }
 `

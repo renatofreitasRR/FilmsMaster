@@ -27,6 +27,12 @@ interface Films {
     poster_path: string;
 }
 
+interface MoviesStorage {
+    id?: number;
+    backdrop_path?: string;
+    poster_path: string;
+}
+
 
 interface Genres {
     id?: number;
@@ -38,6 +44,9 @@ const BannerMovie: React.FC = () => {
     const apiKey = "d6ecb4865ebe46ec907e193a6b5c1c19";
 
     const [films, setFilms] = useState<Films[]>([]);
+
+    const [filmsStorage, setFilmsStorage] = useState<MoviesStorage[]>([]);
+
     const [backgroundMovie, setBackgroundMovie] = useState('');
     const [titleMovie, setTitleMovie] = useState('');
     const [openMenu, setOpenMenu] = useState(false);
@@ -45,6 +54,7 @@ const BannerMovie: React.FC = () => {
     const [genres, setGenres] = useState<Genres[]>([]);
     const [searchMovies, setSearchMovies] = useState('');
     const [messageError, setMessageError] = useState('');
+    const [favoriteMovie, setFavoriteMovie]: any = useState();
 
     useEffect(() => {
         api.get(`discover/movie?api_key=${apiKey}&with_genres=28&language=pt-BR`)
@@ -65,7 +75,7 @@ const BannerMovie: React.FC = () => {
     }, []);
 
 
-    function handleSelectedMovie(backdrop_path: string, title: string, poster_path: string, id: number) {
+    function handleSelectedMovie(backdrop_path: string, title: string, poster_path: string, id: number, movie: any) {
 
         if (backdrop_path === 'null') {
             setBackgroundMovie(`https://image.tmdb.org/t/p/original${poster_path}`);
@@ -75,6 +85,8 @@ const BannerMovie: React.FC = () => {
 
         setTitleMovie(`${title}`);
         setIdParams(id);
+        setFavoriteMovie(movie);
+
     }
 
     function handleSelectedCategory(categoryId: number) {
@@ -87,6 +99,13 @@ const BannerMovie: React.FC = () => {
                 setTitleMovie(response.data.results[0].title);
                 setIdParams(response.data.results[0].id);
             });
+    }
+
+    function handleFavoriteMovie() {
+
+        setFilmsStorage([...filmsStorage, favoriteMovie]);
+
+        localStorage.setItem('@tmdb-api:movies', JSON.stringify(filmsStorage));
     }
 
     async function handleSearchMovie(event: FormEvent<HTMLFormElement>): Promise<void> {
@@ -167,7 +186,9 @@ const BannerMovie: React.FC = () => {
                                 <PlayButton>
                                     Play
                                 </PlayButton>
-                                <AddButton>
+                                <AddButton
+                                    onClick={handleFavoriteMovie}
+                                >
                                     Add <span>+</span>
                                 </AddButton>
                             </div>
@@ -176,7 +197,7 @@ const BannerMovie: React.FC = () => {
                             {films.map(film => film.poster_path ? (
                                 <div
                                     key={film.id}
-                                    onClick={() => handleSelectedMovie(String(film.backdrop_path), String(film.title), String(film.poster_path), Number(film.id))}
+                                    onClick={() => handleSelectedMovie(String(film.backdrop_path), String(film.title), String(film.poster_path), Number(film.id), film)}
                                 >
                                     <img src={`https://image.tmdb.org/t/p/w300${film.poster_path}`} alt={film.title} />
                                 </div>
