@@ -53,7 +53,7 @@ const About: React.FC = () => {
                 setMovie(response.data);
                 console.log(response.data);
             })
-    }, []);
+    }, [params.id]);
     return (
         <>
             <Header>
