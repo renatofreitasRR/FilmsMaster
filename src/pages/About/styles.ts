@@ -42,6 +42,16 @@ export const Container = styled.div`
             height: 20px;
         }
 
+        h3{
+            margin-bottom: 7px;
+        }
+
+        h4{
+            a{
+                text-decoration: none;
+            }
+        }
+
     > .background{
 
         display:flex;
@@ -54,7 +64,7 @@ export const Container = styled.div`
 
         width:100%;
         height:45vh;
-        margin-bottom:50px;
+        margin-bottom:25px;
 
       
         > h1{
@@ -74,32 +84,112 @@ export const Container = styled.div`
 
 
 export const Content = styled.div`
-
     max-width: 90%;
     margin: 0 auto;
 
     color: var(--white);
 
-    > p {
-        font-size: 1em;
-        margin-bottom: 8px;
-    }
-
-    > small{
-        margin-bottom: 4px;
-    }
-
-    h2{
-        margin-top: 8px;
-        font-size: 1.2em;    
-    }
-
-    div >span{
-        margin-right: 8px;
-    }
 `;
 
 export const ArrowLeft = styled(KeyboardArrowLeft)`
     height: 40px;
     width: 42px;
+`;
+
+export const Popularity = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+export const Informations = styled.div`
+    margin-top: 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > span{
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: 0.08em;
+    }
+
+    >div small{
+        color: #C8C8C8;
+    }
+
+    > div {
+        display: flex;
+        flex-direction: column;
+    }
+`;
+export const Description = styled.div`
+    margin-top: 7px;
+
+    h2{
+        margin-bottom: 7px;
+    }
+`;
+export const Genres = styled.div`
+
+    margin: 7px 0;
+
+    h2{
+        margin: 7px 0;
+    }    
+
+    > span {
+
+        & + span{
+            margin-left: 20px;
+        }
+
+        
+    }
+`;
+export const Companies = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content:flex-start;
+
+    width: 100%;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar{
+        display:none;
+    }
+
+    > div{
+        display: flex;
+        flex-direction: column;
+
+        > img{
+            width: 80px;
+            height: 50px;
+
+            object-fit: fill;
+        }
+
+        height: 100px;
+    }
+
+    > div {
+
+    img {
+        margin-bottom: 7px;
+    }
+
+    span{
+        font-size: 14px;
+    }
+
+    & + div{
+        margin-left: 20px;
+    }
+
+
+}
+
 `;

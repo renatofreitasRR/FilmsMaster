@@ -4,7 +4,12 @@ import {
     Container,
     Content,
     ArrowLeft,
-    Header
+    Header,
+    Popularity,
+    Informations,
+    Description,
+    Genres,
+    Companies
 } from './styles';
 
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -33,6 +38,10 @@ interface Movie {
     ];
     release_date: string;
     title: string;
+    popularity: number;
+    runtime: number;
+    vote_average: number;
+
 }
 
 interface MovieParams {
@@ -68,27 +77,50 @@ const About: React.FC = () => {
                         <h1>{movie.title}</h1>
                     </div>
                     <Content>
-                        <p>{movie.overview}</p>
-                        <small>Data de lançamento: {movie.release_date}</small> <br />
-                        <small>Preço de produção: <strong>R$ {movie.budget}</strong></small>
+                        <Popularity>
+                            <div>
+                                <span>{movie.vote_average}</span>
+                            </div>
+                            <span>Popularidade: {movie.popularity}</span>
+                        </Popularity>
 
-                        <h2>Genêros</h2>
-                        <div>
+                        <Informations>
+                            <div>
+                                <span>Duração: </span>
+                                <small>{movie.runtime}m</small>
+                            </div>
+                            <div>
+                                <span>Data: </span>
+                                <small>{movie.release_date}</small>
+                            </div>
+                            <div>
+                                <span>Preço de produção: </span>
+                                <small>R$: {movie.budget}</small>
+                            </div>
+                        </Informations>
+
+                        <Description>
+                            <h2>Descrição</h2>
+                            <p>{movie.overview}</p>
+                        </Description>
+
+                        <Genres>
+                            <h2>Genêros</h2>
                             {movie.genres?.map(genre => (
                                 <span key={genre.id}>{genre.name}</span>
                             ))}
-                        </div>
+                        </Genres>
 
-                        <h3>Produzido por</h3>
-                        <div>
+                        <h3>Produção</h3>
+                        <Companies>
                             {movie.production_companies?.map(companies => (
                                 <div key={companies.id}>
                                     <img src={`https://image.tmdb.org/t/p/original${companies.logo_path}`} alt={companies.name} />
                                     <span>{companies.name}</span>
                                 </div>
                             ))}
-                        </div>
-                        <h3>Pagina principal do filme: <a href={movie.homepage}>Link</a></h3>
+                        </Companies>
+                        <h4>Pagina principal do filme: <a href={movie.homepage}>Link</a></h4>
                     </Content>
                 </Container>
             )
