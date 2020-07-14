@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { KeyboardArrowLeft } from 'styled-icons/material-sharp';
-
+import { Star } from 'styled-icons/boxicons-solid';
 
 export const Header = styled.header`
     color: var(--white);
@@ -91,6 +91,18 @@ export const Content = styled.div`
 
 `;
 
+export const Divisor = styled.div`
+    width: 5px;
+    height: 40px;
+    background: #C4C4C4;
+`;
+
+export const StarCount = styled(Star)`
+    width: 13px;
+    height: 12px;
+    color: #EFFF37;
+`;
+
 export const ArrowLeft = styled(KeyboardArrowLeft)`
     height: 40px;
     width: 42px;
@@ -100,6 +112,15 @@ export const Popularity = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    > div{
+        display: flex;
+        align-items: center;
+
+        svg{
+            margin-left: 4px;
+        }
+    }
 `;
 export const Informations = styled.div`
     margin-top: 7px;

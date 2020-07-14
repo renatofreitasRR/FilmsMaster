@@ -9,7 +9,9 @@ import {
     Informations,
     Description,
     Genres,
-    Companies
+    Companies,
+    Divisor,
+    StarCount
 } from './styles';
 
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -80,6 +82,10 @@ const About: React.FC = () => {
                         <Popularity>
                             <div>
                                 <span>{movie.vote_average}</span>
+                                <StarCount />
+                                <StarCount />
+                                <StarCount />
+                                <StarCount />
                             </div>
                             <span>Popularidade: {movie.popularity}</span>
                         </Popularity>
@@ -89,10 +95,12 @@ const About: React.FC = () => {
                                 <span>Duração: </span>
                                 <small>{movie.runtime}m</small>
                             </div>
+                            <Divisor />
                             <div>
                                 <span>Data: </span>
                                 <small>{movie.release_date}</small>
                             </div>
+                            <Divisor />
                             <div>
                                 <span>Preço de produção: </span>
                                 <small>R$: {movie.budget}</small>
