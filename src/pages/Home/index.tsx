@@ -7,11 +7,15 @@ import illustration from '../../assets/illustration.svg';
 const Home: React.FC = () => {
   return(
     <Container>
-            <h1>Recomendações de filmes para você</h1>
+            <div>
+              <h1>Recomendações de filmes para você</h1>
+              <Link to="/movies">
+                  Entrar
+              </Link>
+            </div>  
+            
             <img src={illustration} alt=""/>
-            <Link to="/movies">
-                Entrar
-            </Link>
+            
     </Container>
   );
 }

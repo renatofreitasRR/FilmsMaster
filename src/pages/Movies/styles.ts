@@ -12,7 +12,6 @@ export const Container = styled.div`
 
         border-radius: 0px 0px 50px 50px;
 
-
     > .background{
         position: relative;
 
@@ -20,14 +19,31 @@ export const Container = styled.div`
         align-items:flex-end;
         justify-content:center;
 
-        background-size:cover;
-        background-position:center;
-
-        border-radius: 0px 0px 50px 50px;
-
         width:100%;
         height:45vh;
         margin-bottom:50px;
+
+        img{
+            width:100%;
+            height:45vh;
+            border-radius: 0px 0px 50px 50px;
+            object-fit: cover;
+            -webkit-mask-image: linear-gradient(to top, transparent 0%, black 60%);
+
+            @media (min-width: 650px) {
+                width:100%;
+                height: 100vh;
+                -webkit-mask-image: linear-gradient(to right, transparent 10%, black 60%);
+                object-fit: cover;
+            }
+        }
+
+        @media (min-width: 650px) {
+            height: 100vh;
+            border-radius: 0;
+            position: fixed;
+            top: 0;
+        }
 
         > .title{
             margin: 0 0 0 10px;
@@ -35,6 +51,14 @@ export const Container = styled.div`
             position: absolute;
             display:flex;
             flex-direction: column;
+
+            opacity: 100% !important;
+
+            @media (min-width: 650px) {
+               position: absolute;
+               top: 35%;
+               left: 40px;
+            }
 
             > a{
                 color: var(--white);
@@ -75,6 +99,13 @@ export const Container = styled.div`
         width: 100%;
         display: flex;
         justify-content: space-around;
+
+        @media (min-width: 650px) {
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            left: 10px;
+        }
     }
 `;
 
@@ -168,6 +199,11 @@ export const MovieList = styled.div`
     overflow-x: scroll;
     overflow-y: hidden;
 
+    @media (min-width: 650px) {
+        position: absolute;
+        bottom: 0;
+    }
+
     &::-webkit-scrollbar{
         display:none;
     }
@@ -178,15 +214,30 @@ export const MovieList = styled.div`
 
     cursor: pointer;
 
+    margin-bottom: 24px;
 
     div {
         height: 220px;
         width: 150;
         margin-left: 10px;
+
+        &:hover{
+            transform: scale(1.1);
+        }
+
+        @media (min-width: 650px) {
+            height: 300px;
+            width: 200px;
+        }
   
         > img {
             height: 220px;
             width: 150;
+
+            @media (min-width: 650px) {
+                height: 300px;
+                width: 200px;
+            }
         }
     }
 `;
@@ -356,7 +407,6 @@ export const HeartFavoriteIcon = styled(Heart)`
     }
 
 `
-
 export const SideBarMenu = styled.div`
     background-color:var(--black);
     

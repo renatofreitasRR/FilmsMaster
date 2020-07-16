@@ -12,7 +12,7 @@ import {
     SearchIcon,
     MovieList,
     SideBarMenu,
-    AboutIcon
+    AboutIcon,
 } from './styles';
 
 import { Link } from 'react-router-dom';
@@ -25,6 +25,7 @@ interface Films {
     title?: string | undefined;
     popularity?: number;
     poster_path: string;
+
 }
 
 interface MoviesStorage {
@@ -45,8 +46,6 @@ const BannerMovie: React.FC = () => {
 
     const [films, setFilms] = useState<Films[]>([]);
 
-    const [filmsStorage, setFilmsStorage] = useState<MoviesStorage[]>([]);
-
     const [backgroundMovie, setBackgroundMovie] = useState('');
     const [titleMovie, setTitleMovie] = useState('');
     const [openMenu, setOpenMenu] = useState(false);
@@ -54,6 +53,8 @@ const BannerMovie: React.FC = () => {
     const [genres, setGenres] = useState<Genres[]>([]);
     const [searchMovies, setSearchMovies] = useState('');
     const [messageError, setMessageError] = useState('');
+
+    const [filmsStorage, setFilmsStorage] = useState<MoviesStorage[]>([]);
     const [favoriteMovie, setFavoriteMovie]: any = useState();
 
     useEffect(() => {
@@ -63,6 +64,7 @@ const BannerMovie: React.FC = () => {
                 setBackgroundMovie('https://image.tmdb.org/t/p/original' + response.data.results[0].backdrop_path);
                 setTitleMovie(response.data.results[0].title);
                 setIdParams(response.data.results[0].id);
+                setFavoriteMovie(response.data.results[0]);
             })
     }, []);
 
@@ -98,12 +100,15 @@ const BannerMovie: React.FC = () => {
                 setBackgroundMovie('https://image.tmdb.org/t/p/original' + response.data.results[0].backdrop_path);
                 setTitleMovie(response.data.results[0].title);
                 setIdParams(response.data.results[0].id);
+                setFavoriteMovie(response.data.results[0]);
             });
     }
 
     function handleFavoriteMovie() {
 
         setFilmsStorage([...filmsStorage, favoriteMovie]);
+
+        console.log(filmsStorage, favoriteMovie);
 
         localStorage.setItem('@tmdb-api:movies', JSON.stringify(filmsStorage));
     }
@@ -113,6 +118,7 @@ const BannerMovie: React.FC = () => {
 
         api.get(`search/movie?query=${searchMovies}&api_key=${apiKey}&language=pt-BR`)
             .then(response => {
+                setSearchMovies('');
                 setMessageError('');
 
                 if (response.data.results.length > 0) {
@@ -172,7 +178,8 @@ const BannerMovie: React.FC = () => {
                 </SideBarMenu> : (
                     <>
                         <Container>
-                            <header className="background" style={{ backgroundImage: `url(${backgroundMovie})` }}>
+                            <header className="background">
+                                <img src={backgroundMovie} alt=""/>
                                 <div className="title">
                                     <h1>{titleMovie}</h1>
                                     <Link to={`/about/${idParams}`}>

@@ -155,6 +155,17 @@ export const Genres = styled.div`
 
     margin: 7px 0;
 
+    display:flex;
+    align-items: center;
+    justify-content:flex-start;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar{
+        display:none;
+    }
+
     h2{
         margin: 7px 0;
     }    

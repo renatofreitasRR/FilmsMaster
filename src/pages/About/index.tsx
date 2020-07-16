@@ -112,8 +112,9 @@ const About: React.FC = () => {
                             <p>{movie.overview}</p>
                         </Description>
 
+
+                        <h2>Genêros</h2>
                         <Genres>
-                            <h2>Genêros</h2>
                             {movie.genres?.map(genre => (
                                 <span key={genre.id}>{genre.name}</span>
                             ))}

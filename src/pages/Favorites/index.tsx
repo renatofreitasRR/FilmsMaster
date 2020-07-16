@@ -10,7 +10,7 @@ import {
 
 
 interface Movies {
-    id?: number;
+    id: number;
     backdrop_path?: string;
     title?: string | undefined;
     popularity?: number;
@@ -19,16 +19,16 @@ interface Movies {
 
 
 const Favorites: React.FC = () => {
-    const [movies, setMovies] = useState<Movies[]>(() => {
-        const localStorageRepositories = localStorage.getItem('@tmdb-api:movies');
+//     const [movies, setMovies] = useState<Movies[]>(() => {
+//         const localStorageRepositories = localStorage.getItem('@tmdb-api:movies');
 
-        if (localStorageRepositories) {
-            return JSON.parse(localStorageRepositories);
-        } else {
-            return [];
-        };
+//         if (localStorageRepositories) {
+//             return JSON.parse(localStorageRepositories);
+//         } else {
+//             return [];
+//         };
 
-    });
+//     });
 
 
     return (
@@ -40,7 +40,7 @@ const Favorites: React.FC = () => {
                 </Link>
             </header>
             <h1>Meus filmes favoritos</h1>
-            <FavoriteMovies>
+            {/* <FavoriteMovies>
                 {movies.map(movie => (
                     <div key={movie.id} className="movie">
                         <img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} />
@@ -50,7 +50,7 @@ const Favorites: React.FC = () => {
                         </div>
                     </div>
                 ))}
-            </FavoriteMovies>
+            </FavoriteMovies> */}
         </Container>
     );
 }
