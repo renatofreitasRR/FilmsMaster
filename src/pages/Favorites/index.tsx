@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
     Container,
     ArrowLeft,
-    FavoriteMovies,
-    Trash,
-    Comment
 } from './styles';
 
 
-interface Movies {
-    id: number;
-    backdrop_path?: string;
-    title?: string | undefined;
-    popularity?: number;
-    poster_path: string;
-}
+// interface Movies {
+//     id: number;
+//     backdrop_path?: string;
+//     title?: string | undefined;
+//     popularity?: number;
+//     poster_path: string;
+// }
 
 
 const Favorites: React.FC = () => {
