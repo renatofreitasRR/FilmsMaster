@@ -75,7 +75,8 @@ const About: React.FC = () => {
             </Header>
             {movie && (
                 <Container>
-                    <div className="background" style={{ backgroundImage: `url("https://image.tmdb.org/t/p/original${movie.backdrop_path}")` }}>
+                    <div className="background">
+                        <img src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} alt={movie.title} />
                         <h1>{movie.title}</h1>
                     </div>
                     <Content>
@@ -122,12 +123,12 @@ const About: React.FC = () => {
 
                         <h3>Produção</h3>
                         <Companies>
-                            {movie.production_companies?.map(companies => (
+                            {movie.production_companies?.map(companies => companies.logo_path !== null ? (
                                 <div key={companies.id}>
                                     <img src={`https://image.tmdb.org/t/p/original${companies.logo_path}`} alt={companies.name} />
                                     <span>{companies.name}</span>
                                 </div>
-                            ))}
+                            ) : (<span>{companies.name}</span>))}
                         </Companies>
                         <h4>Pagina principal do filme: <a href={movie.homepage}>Link</a></h4>
                     </Content>

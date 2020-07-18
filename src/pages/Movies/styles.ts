@@ -16,8 +16,8 @@ export const Container = styled.div`
         position: relative;
 
         display:flex;
-        align-items:flex-end;
-        justify-content:center;
+        /* align-items:flex-end; */
+        /* justify-content:center; */
 
         width:100%;
         height:45vh;
@@ -226,7 +226,7 @@ export const MovieList = styled.div`
         }
 
         @media (min-width: 650px) {
-            height: 300px;
+            height: 250px;
             width: 200px;
         }
   

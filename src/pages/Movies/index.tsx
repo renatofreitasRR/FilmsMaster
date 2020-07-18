@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
 
+import Modal from '../../components/Modal';
+
 interface Films {
     id?: number;
     backdrop_path?: string;
@@ -49,6 +51,7 @@ const BannerMovie: React.FC = () => {
     const [backgroundMovie, setBackgroundMovie] = useState('');
     const [titleMovie, setTitleMovie] = useState('');
     const [openMenu, setOpenMenu] = useState(false);
+    const [modalMovie, setModalMovie] = useState(false);
     const [idParams, setIdParams] = useState(0);
     const [genres, setGenres] = useState<Genres[]>([]);
     const [searchMovies, setSearchMovies] = useState('');
@@ -134,6 +137,7 @@ const BannerMovie: React.FC = () => {
 
     }
 
+
     return (
         <>
             <Header>
@@ -179,7 +183,7 @@ const BannerMovie: React.FC = () => {
                     <>
                         <Container>
                             <header className="background">
-                                <img src={backgroundMovie} alt=""/>
+                                <img src={backgroundMovie} alt={titleMovie} />
                                 <div className="title">
                                     <h1>{titleMovie}</h1>
                                     <Link to={`/about/${idParams}`}>
@@ -190,7 +194,7 @@ const BannerMovie: React.FC = () => {
                                 </div>
                             </header>
                             <div className="buttons">
-                                <PlayButton>
+                                <PlayButton onClick={() => setModalMovie(!!true)}>
                                     Play
                                 </PlayButton>
                                 <AddButton
@@ -198,6 +202,7 @@ const BannerMovie: React.FC = () => {
                                 >
                                     Add <span>+</span>
                                 </AddButton>
+
                             </div>
                         </Container>
                         <MovieList>
@@ -213,6 +218,11 @@ const BannerMovie: React.FC = () => {
                         </MovieList>
                     </>
                 )}
+            {modalMovie && (
+                <>
+                    <Modal movieId={idParams} />
+                </>
+            )}
         </>
     );
 }

@@ -57,14 +57,23 @@ export const Container = styled.div`
         display:flex;
         align-items:flex-end;
 
-        background-size:cover;
-        background-position:center;
-
         border-radius: 0px 0px 50px 50px;
 
         width:100%;
         height:45vh;
         margin-bottom:25px;
+
+        position: relative;
+
+        img{
+            width:100%;
+            height:45vh;
+            border-radius: 0px 0px 50px 50px;
+            object-fit: cover;
+            object-position: center;
+
+            mask-image: linear-gradient(to top, transparent 0%, black 60%);
+        }
 
       
         > h1{
@@ -76,6 +85,10 @@ export const Container = styled.div`
             font-size: 1.8em;
             line-height: 42px;
             letter-spacing: 0.08em;
+
+            position: absolute;
+
+            margin: 0 0 0 10px;
         }
 
     }
@@ -196,6 +209,7 @@ export const Companies = styled.div`
     > div{
         display: flex;
         flex-direction: column;
+        align-items: center;
 
         > img{
             width: 80px;
