@@ -62,7 +62,6 @@ const About: React.FC = () => {
         api.get(`movie/${params.id}?api_key=${apiKey}&language=pt-BR`)
             .then(response => {
                 setMovie(response.data);
-                console.log(response.data);
             })
     }, [params.id]);
     return (

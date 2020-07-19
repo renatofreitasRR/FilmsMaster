@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Close } from 'styled-icons/evaicons-solid';
 
+
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -19,8 +20,9 @@ export const Container = styled.div`
     background-color: rgba(0, 0, 0, 0.7);
 
     iframe{
-        width: 70%;
-        height: 70%;
+        width: 90%;
+        height: 350px;
+      
     }
 
 `;

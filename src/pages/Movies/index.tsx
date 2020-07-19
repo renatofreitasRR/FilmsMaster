@@ -30,13 +30,6 @@ interface Films {
 
 }
 
-interface MoviesStorage {
-    id?: number;
-    backdrop_path?: string;
-    poster_path: string;
-}
-
-
 interface Genres {
     id?: number;
     name: string;
@@ -56,9 +49,7 @@ const BannerMovie: React.FC = () => {
     const [genres, setGenres] = useState<Genres[]>([]);
     const [searchMovies, setSearchMovies] = useState('');
     const [messageError, setMessageError] = useState('');
-
-    const [filmsStorage, setFilmsStorage] = useState<MoviesStorage[]>([]);
-    const [favoriteMovie, setFavoriteMovie]: any = useState();
+    const [movieObject, setMovieObject] = useState([]);
 
     useEffect(() => {
         api.get(`discover/movie?api_key=${apiKey}&with_genres=28&language=pt-BR`)
@@ -67,7 +58,7 @@ const BannerMovie: React.FC = () => {
                 setBackgroundMovie('https://image.tmdb.org/t/p/original' + response.data.results[0].backdrop_path);
                 setTitleMovie(response.data.results[0].title);
                 setIdParams(response.data.results[0].id);
-                setFavoriteMovie(response.data.results[0]);
+                setMovieObject(response.data.results[0]);
             })
     }, []);
 
@@ -90,7 +81,7 @@ const BannerMovie: React.FC = () => {
 
         setTitleMovie(`${title}`);
         setIdParams(id);
-        setFavoriteMovie(movie);
+        setMovieObject(movie);
 
     }
 
@@ -103,18 +94,14 @@ const BannerMovie: React.FC = () => {
                 setBackgroundMovie('https://image.tmdb.org/t/p/original' + response.data.results[0].backdrop_path);
                 setTitleMovie(response.data.results[0].title);
                 setIdParams(response.data.results[0].id);
-                setFavoriteMovie(response.data.results[0]);
+                setMovieObject(response.data.results[0]);
             });
     }
 
-    function handleFavoriteMovie() {
-
-        setFilmsStorage([...filmsStorage, favoriteMovie]);
-
-        console.log(filmsStorage, favoriteMovie);
-
-        localStorage.setItem('@tmdb-api:movies', JSON.stringify(filmsStorage));
+    function handleFavoriteMovie(objectMovie: object) {
+        localStorage.setItem('@tmdb-api:movies', JSON.stringify(objectMovie));
     }
+
 
     async function handleSearchMovie(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
@@ -194,11 +181,15 @@ const BannerMovie: React.FC = () => {
                                 </div>
                             </header>
                             <div className="buttons">
-                                <PlayButton onClick={() => setModalMovie(!!true)}>
+                                <PlayButton onClick={() => setModalMovie(true)}>
                                     Play
                                 </PlayButton>
                                 <AddButton
-                                    onClick={handleFavoriteMovie}
+                                    onClick={() => handleFavoriteMovie({
+                                        id: idParams,
+                                        poster: backgroundMovie,
+                                        title: titleMovie
+                                    })}
                                 >
                                     Add <span>+</span>
                                 </AddButton>
@@ -220,7 +211,7 @@ const BannerMovie: React.FC = () => {
                 )}
             {modalMovie && (
                 <>
-                    <Modal movieId={idParams} />
+                    <Modal movieId={idParams} onClose={() => setModalMovie(false)} />
                 </>
             )}
         </>
