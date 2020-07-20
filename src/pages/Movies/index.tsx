@@ -185,11 +185,7 @@ const BannerMovie: React.FC = () => {
                                     Play
                                 </PlayButton>
                                 <AddButton
-                                    onClick={() => handleFavoriteMovie({
-                                        id: idParams,
-                                        poster: backgroundMovie,
-                                        title: titleMovie
-                                    })}
+                                    onClick={() => handleFavoriteMovie(movieObject)}
                                 >
                                     Add <span>+</span>
                                 </AddButton>

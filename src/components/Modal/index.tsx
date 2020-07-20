@@ -10,7 +10,7 @@ interface PropsData {
 
 }
 
-const Modal: React.FC<PropsData> = ({ movieId, onClose = () => {} }) => {
+const Modal: React.FC<PropsData> = ({ movieId, onClose = () => { } }) => {
 
     const apiKey = "d6ecb4865ebe46ec907e193a6b5c1c19";
     const [movieVideo, setMovieVideo] = useState('');
@@ -25,10 +25,11 @@ const Modal: React.FC<PropsData> = ({ movieId, onClose = () => {} }) => {
     return (
         <>
             <Container onClick={onClose}>
-                <CloseIcon
-                    onClick={onClose}
-                />
-                    <Iframe
+                <div>
+                    <CloseIcon onClick={onClose} />
+                </div>
+
+                <Iframe
                     url={`https://www.youtube.com/embed/${movieVideo}`}
                 />
             </Container>

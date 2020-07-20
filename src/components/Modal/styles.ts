@@ -20,9 +20,20 @@ export const Container = styled.div`
     background-color: rgba(0, 0, 0, 0.7);
 
     iframe{
-        width: 90%;
-        height: 350px;
+        width: 95%;
+        height: 400px;
+
+        @media (min-width: 650px) {
+            width: 500px;
+            height: 400px;
+        }
       
+    }
+
+    div{
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
     }
 
 `;
