@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import { KeyboardArrowLeft } from 'styled-icons/material-sharp';
 import { TrashBin } from 'styled-icons/ionicons-sharp';
-import { CommentAdd } from 'styled-icons/boxicons-solid';
 
 export const Container = styled.div`
     height: 100%;
@@ -56,7 +55,6 @@ const icons = css`
 
 export const ArrowLeft = styled(KeyboardArrowLeft)`${icons}`
 export const Trash = styled(TrashBin)`${icons}; color: red;`
-export const Comment = styled(CommentAdd)`${icons}; color: #fff;`
 
 export const FavoriteMovies = styled.div`
     height: 100%;
@@ -65,16 +63,15 @@ export const FavoriteMovies = styled.div`
     flex-direction: column;
     align-items: center;
 
-    > img{
-        width: 100%;
-        height: 200px;
-    }
+    
 
     > .movie{
         display: flex;
         flex-direction: column;
 
         margin-bottom: 14px;
+
+        width: 100%;
         
         > div{
             display: flex;
@@ -83,5 +80,12 @@ export const FavoriteMovies = styled.div`
 
             margin-top: 14px;
         }
+
+        > img{
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
     }
 `

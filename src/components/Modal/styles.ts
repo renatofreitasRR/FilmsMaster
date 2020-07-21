@@ -30,6 +30,21 @@ export const Container = styled.div`
       
     }
 
+    .error{
+        width: 100%;
+        height: 400px;
+
+        h1{
+            color: #fff;
+        }
+
+        @media (min-width: 650px) {
+            width: 500px;
+            height: 400px;
+        }
+      
+    }
+
     div{
         display: flex;
         width: 100%;

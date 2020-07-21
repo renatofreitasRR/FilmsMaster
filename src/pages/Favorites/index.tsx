@@ -3,30 +3,27 @@ import { Link } from 'react-router-dom';
 import {
     Container,
     ArrowLeft,
+    FavoriteMovies,
+    Trash
 } from './styles';
 
 
-// interface Movies {
-//     id: number;
-//     backdrop_path?: string;
-//     title?: string | undefined;
-//     popularity?: number;
-//     poster_path: string;
-// }
+interface Movies {
+    id: number;
+    backdrop_path?: string;
+    title?: string | undefined;
+    popularity?: number;
+    poster_path: string;
+}
 
 
 const Favorites: React.FC = () => {
-//     const [movies, setMovies] = useState<Movies[]>(() => {
-//         const localStorageRepositories = localStorage.getItem('@tmdb-api:movies');
 
-//         if (localStorageRepositories) {
-//             return JSON.parse(localStorageRepositories);
-//         } else {
-//             return [];
-//         };
+    const localStorageRepositories = localStorage.getItem('@tmdb-api:movies');
 
-//     });
-
+    const verifySoraged = localStorageRepositories
+            ? JSON.parse(localStorageRepositories)
+            : [];
 
     return (
         <Container>
@@ -37,17 +34,14 @@ const Favorites: React.FC = () => {
                 </Link>
             </header>
             <h1>Meus filmes favoritos</h1>
-            {/* <FavoriteMovies>
-                {movies.map(movie => (
+            <FavoriteMovies>
+                {verifySoraged.map((movie: Movies) => movie.title !== null ?  (
                     <div key={movie.id} className="movie">
-                        <img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} />
-                        <div>
-                            <Comment />
-                            <Trash />
-                        </div>
+                        <img src={movie.poster_path} alt={movie.title} />
+                        <Trash />
                     </div>
-                ))}
-            </FavoriteMovies> */}
+                ): null)}
+            </FavoriteMovies>
         </Container>
     );
 }

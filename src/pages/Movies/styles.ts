@@ -368,6 +368,8 @@ export const HambuerguerMenuIcon = styled(Menu)`
 
     cursor:pointer;
 
+  
+
     &:hover {
         opacity: 0.5;
     }
@@ -418,6 +420,10 @@ export const SideBarMenu = styled.div`
     align-items: center;
     justify-content: center;
 
+    /* @media(min-width: 1000px){
+        width: 250px;
+    } */
+
     > .category{
         display:flex;
         align-items:center;
@@ -466,9 +472,5 @@ export const SideBarMenu = styled.div`
             }
     }
 
-        
- 
-   
 `;
-
 
