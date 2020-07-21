@@ -54,7 +54,11 @@ const icons = css`
 `
 
 export const ArrowLeft = styled(KeyboardArrowLeft)`${icons}`
-export const Trash = styled(TrashBin)`${icons}; color: red;`
+export const Trash = styled(TrashBin)`
+    ${icons}; 
+    color: red;
+    position: absolute;
+`
 
 export const FavoriteMovies = styled.div`
     height: 100%;
@@ -72,6 +76,8 @@ export const FavoriteMovies = styled.div`
         margin-bottom: 14px;
 
         width: 100%;
+
+        position: relative;
         
         > div{
             display: flex;
