@@ -4,6 +4,9 @@ import { Heart } from 'styled-icons/icomoon';
 import { Search } from 'styled-icons/heroicons-solid';
 import { ExclamationOutline } from 'styled-icons/zondicons';
 
+
+import { Props } from '.';
+
 export const Container = styled.div`
         display:flex;
         flex-direction: column;
@@ -242,7 +245,7 @@ export const MovieList = styled.div`
     }
 `;
 
-export const Header = styled.div`
+export const Header = styled.div<Props>`
     position:fixed;
     top:0;
     left:0;
@@ -291,7 +294,7 @@ export const Header = styled.div`
 
             font-size: 0.6rem;
 
-            content: '5+';
+            content: '${props => props.storageLengthNumber}';
             z-index: 50;
         }
     }

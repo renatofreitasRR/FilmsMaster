@@ -34,11 +34,21 @@ interface Genres {
     name: string;
 }
 
-const BannerMovie: React.FC = () => {
+export interface Props{
+    storageLengthNumber: number;
+}
+
+const BannerMovie: React.FC<Props> = () => {
 
     const apiKey = "d6ecb4865ebe46ec907e193a6b5c1c19";
 
     const [films, setFilms] = useState<Films[]>([]);
+
+    const moviesStoraged = localStorage.getItem('@tmdb-api:movies');
+
+    const verifySoraged = moviesStoraged
+    ? JSON.parse(moviesStoraged)
+    : []
 
     const [openMenu, setOpenMenu] = useState(false);
     const [modalMovie, setModalMovie] = useState(false);
@@ -46,7 +56,7 @@ const BannerMovie: React.FC = () => {
     const [genresSelected, setGenresSelected] = useState(28);
     const [searchMovies, setSearchMovies] = useState('');
     const [messageError, setMessageError] = useState('');
-    // const [movieObject, setMovieObject] = useState([]);
+    const [storageLength, setStorageLength] = useState(verifySoraged.length);
     const [movieObjectTeste, setMovieObjectTeste] = useState({
         id: 0,
         backdrop_path: "",
@@ -112,8 +122,10 @@ const BannerMovie: React.FC = () => {
 
         localStorage.setItem('@tmdb-api:movies', JSON.stringify(newStoraged));
 
+        setStorageLength(newStoraged.length);
     }
 
+   
 
     async function handleSearchMovie(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
@@ -142,7 +154,7 @@ const BannerMovie: React.FC = () => {
 
     return (
         <>
-            <Header>
+            <Header storageLengthNumber={storageLength} >
                 <HambuerguerMenuIcon
                     onClick={
                         () => {
