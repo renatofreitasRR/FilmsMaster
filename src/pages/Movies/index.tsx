@@ -56,7 +56,7 @@ const BannerMovie: React.FC<Props> = () => {
     const [genresSelected, setGenresSelected] = useState(28);
     const [searchMovies, setSearchMovies] = useState('');
     const [messageError, setMessageError] = useState('');
-    const [messageAdd, setMessageAdd] = useState('Add +');
+    // const [messageAdd, setMessageAdd] = useState('Add +');
     const [storageLength, setStorageLength] = useState(verifySoraged.length);
     const [movieObjectTeste, setMovieObjectTeste] = useState({
         id: 0,
@@ -224,7 +224,7 @@ const BannerMovie: React.FC<Props> = () => {
                                 <AddButton
                                     onClick={() => handleFavoriteMovie(movieObjectTeste)}
                                 >
-                                    {messageAdd}
+                                   Add + {/* {messageAdd} */}
                                 </AddButton>
                             </div>
                         </Container>
