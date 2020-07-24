@@ -34,7 +34,7 @@ interface Genres {
     name: string;
 }
 
-export interface Props{
+export interface Props {
     storageLengthNumber: number;
 }
 
@@ -47,8 +47,8 @@ const BannerMovie: React.FC<Props> = () => {
     const moviesStoraged = localStorage.getItem('@tmdb-api:movies');
 
     const verifySoraged = moviesStoraged
-    ? JSON.parse(moviesStoraged)
-    : []
+        ? JSON.parse(moviesStoraged)
+        : []
 
     const [openMenu, setOpenMenu] = useState(false);
     const [modalMovie, setModalMovie] = useState(false);
@@ -56,6 +56,7 @@ const BannerMovie: React.FC<Props> = () => {
     const [genresSelected, setGenresSelected] = useState(28);
     const [searchMovies, setSearchMovies] = useState('');
     const [messageError, setMessageError] = useState('');
+    const [messageAdd, setMessageAdd] = useState('Add +');
     const [storageLength, setStorageLength] = useState(verifySoraged.length);
     const [movieObjectTeste, setMovieObjectTeste] = useState({
         id: 0,
@@ -104,7 +105,10 @@ const BannerMovie: React.FC<Props> = () => {
             });
         }
 
+
+
     }
+
 
     function handleSelectedCategory(categoryId: number) {
         setOpenMenu(false);
@@ -112,11 +116,18 @@ const BannerMovie: React.FC<Props> = () => {
     }
 
     function handleFavoriteMovie(movieObjectTeste: Films) {
+
         const moviesStoraged = localStorage.getItem('@tmdb-api:movies');
 
         const verifySoraged = moviesStoraged
             ? JSON.parse(moviesStoraged)
             : []
+
+        const sameMovie = verifySoraged.filter((movie: any) => movie.id === movieObjectTeste.id);
+
+        if (sameMovie.length > 0) {
+            return;
+        }
 
         const newStoraged = [...verifySoraged, movieObjectTeste]
 
@@ -125,7 +136,6 @@ const BannerMovie: React.FC<Props> = () => {
         setStorageLength(newStoraged.length);
     }
 
-   
 
     async function handleSearchMovie(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
@@ -214,9 +224,8 @@ const BannerMovie: React.FC<Props> = () => {
                                 <AddButton
                                     onClick={() => handleFavoriteMovie(movieObjectTeste)}
                                 >
-                                    Add <span>+</span>
+                                    {messageAdd}
                                 </AddButton>
-
                             </div>
                         </Container>
                         <MovieList>
