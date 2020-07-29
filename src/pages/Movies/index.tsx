@@ -13,6 +13,9 @@ import {
     MovieList,
     SideBarMenu,
     AboutIcon,
+    ArrowLeftIcon,
+    ArrowRightIcon,
+    Arrows
 } from './styles';
 
 import { Link } from 'react-router-dom';
@@ -54,6 +57,7 @@ const BannerMovie: React.FC<Props> = () => {
     const [modalMovie, setModalMovie] = useState(false);
     const [genres, setGenres] = useState<Genres[]>([]);
     const [genresSelected, setGenresSelected] = useState(28);
+    const [pages, setPages] = useState(1);
     const [searchMovies, setSearchMovies] = useState('');
     const [messageError, setMessageError] = useState('');
     // const [messageAdd, setMessageAdd] = useState('Add +');
@@ -66,7 +70,7 @@ const BannerMovie: React.FC<Props> = () => {
     });
 
     useEffect(() => {
-        api.get(`discover/movie?api_key=${apiKey}&with_genres=${genresSelected}&language=pt-BR`)
+        api.get(`discover/movie?api_key=${apiKey}&with_genres=${genresSelected}&language=pt-BR&page=${pages}`)
             .then(response => {
                 setFilms(response.data.results);
                 setMovieObjectTeste({
@@ -75,8 +79,9 @@ const BannerMovie: React.FC<Props> = () => {
                     title: response.data.results[0].title,
                     poster_path: `https://image.tmdb.org/t/p/original${response.data.results[0].poster_path}`,
                 });
+                console.log(response.data);
             })
-    }, [genresSelected]);
+    }, [genresSelected, pages]);
 
 
     useEffect(() => {
@@ -224,10 +229,17 @@ const BannerMovie: React.FC<Props> = () => {
                                 <AddButton
                                     onClick={() => handleFavoriteMovie(movieObjectTeste)}
                                 >
-                                   Add + {/* {messageAdd} */}
+                                    Add + {/* {messageAdd} */}
                                 </AddButton>
                             </div>
                         </Container>
+
+
+                        <Arrows>
+                            <ArrowLeftIcon onClick={() => setPages(c => c - 1)} />
+                            <ArrowRightIcon onClick={() => setPages(c => c + 1)} />
+                        </Arrows>
+
                         <MovieList>
                             {films.map(film => film.poster_path ? (
                                 <div
@@ -239,6 +251,8 @@ const BannerMovie: React.FC<Props> = () => {
                             ) : null
                             )}
                         </MovieList>
+
+
                     </>
                 )}
             {modalMovie && (

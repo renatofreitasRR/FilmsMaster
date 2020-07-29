@@ -3,6 +3,7 @@ import { Menu } from 'styled-icons/material-sharp';
 import { Heart } from 'styled-icons/icomoon';
 import { Search } from 'styled-icons/heroicons-solid';
 import { ExclamationOutline } from 'styled-icons/zondicons';
+import { LeftArrow, RightArrow } from 'styled-icons/boxicons-solid';
 
 
 import { Props } from '.';
@@ -412,6 +413,29 @@ export const HeartFavoriteIcon = styled(Heart)`
     }
 
 `
+export const ArrowLeftIcon = styled(LeftArrow)`
+    left: 0;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+`;
+
+export const Arrows = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    justify-content: space-between;
+
+    z-index: 1000;
+`;
+
+export const ArrowRightIcon = styled(RightArrow)`
+    width: 20px;
+    height: 20px;
+    color: #fff;
+`;
+
 export const SideBarMenu = styled.div`
     background-color:var(--black);
     

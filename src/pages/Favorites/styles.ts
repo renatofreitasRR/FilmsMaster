@@ -35,6 +35,17 @@ export const Container = styled.div`
         
     }
 
+    > .teste{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 18px;
+        width: 100%;
+        height: 50px;
+        background-color: #ccc;
+    }
+
     > h1{
         margin-top: 76px;
 

@@ -64,6 +64,17 @@ const About: React.FC = () => {
                 setMovie(response.data);
             })
     }, [params.id]);
+
+
+    let rows = [];
+
+    if (movie) {
+        for (let i = 0; i < movie.vote_average; i++) {
+            rows.push(<StarCount />);
+        }
+    }
+
+
     return (
         <>
             <Header>
@@ -82,10 +93,7 @@ const About: React.FC = () => {
                         <Popularity>
                             <div>
                                 <span>{movie.vote_average}</span>
-                                <StarCount />
-                                <StarCount />
-                                <StarCount />
-                                <StarCount />
+                                {rows}
                             </div>
                             <span>Popularidade: {movie.popularity}</span>
                         </Popularity>

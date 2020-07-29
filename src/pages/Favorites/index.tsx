@@ -28,9 +28,9 @@ const Favorites: React.FC = () => {
             ? JSON.parse(localStorageMovies)
             : [];
 
-            setFavoriteMovies(verifyStoraged);
+        setFavoriteMovies(verifyStoraged);
 
-    }, [])
+    }, []) 
 
 
     function handleExcluseMovie(id: number) {
@@ -41,6 +41,10 @@ const Favorites: React.FC = () => {
         localStorage.setItem('@tmdb-api:movies', JSON.stringify(filteredMovies));
 
         setFavoriteMovies(filteredMovies);
+    }
+
+    function excluseAll() {
+        localStorage.clear();
     }
 
 
@@ -54,6 +58,9 @@ const Favorites: React.FC = () => {
                 </Link>
             </header>
             <h1>Meus filmes favoritos</h1>
+            <div className="teste">
+                <h3 onClick={excluseAll} >Excluir todos</h3>
+            </div>
             <FavoriteMovies>
                 {favoriteMovies.map((movie: Movies) => movie.title !== null ? (
                     <div key={movie.id} className="movie">
