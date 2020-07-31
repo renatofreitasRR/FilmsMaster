@@ -60,7 +60,7 @@ const BannerMovie: React.FC<Props> = () => {
     const [pages, setPages] = useState(1);
     const [searchMovies, setSearchMovies] = useState('');
     const [messageError, setMessageError] = useState('');
-    const [messageAdd, setMessageAdd] = useState('Add +');
+    const [messageAdd, setMessageAdd] = useState('');
     const [storageLength, setStorageLength] = useState(verifySoraged.length);
     const [movieObjectTeste, setMovieObjectTeste] = useState({
         id: 0,
@@ -80,21 +80,13 @@ const BannerMovie: React.FC<Props> = () => {
                     poster_path: `https://image.tmdb.org/t/p/original${response.data.results[0].poster_path}`,
                 });
 
-                const moviesStoraged = localStorage.getItem('@tmdb-api:movies');
+                const movieIsFavorite = verifyFavorite(response.data.results[0].id);
 
-                const verifySoraged = moviesStoraged
-                    ? JSON.parse(moviesStoraged)
-                    : []
-
-                const findSameId = verifySoraged.find((movie: any) => movie.id === response.data.results[0].id);
-
-                if (findSameId) {
-                    setMessageAdd('Favoritado')
-                    return
+                if (movieIsFavorite === true) {
+                    setMessageAdd('Favoritado');
                 } else {
-                    setMessageAdd('Add +')
+                    setMessageAdd('Add +');
                 }
-
 
             })
     }, [genresSelected, pages]);
@@ -125,7 +117,19 @@ const BannerMovie: React.FC<Props> = () => {
             });
         }
 
+        const movieIsFavorite = verifyFavorite(id);
 
+        if (movieIsFavorite === true) {
+            setMessageAdd('Favoritado');
+        } else {
+            setMessageAdd('Add +');
+        }
+
+
+    }, [])
+
+
+    function verifyFavorite(id: number) {
         const moviesStoraged = localStorage.getItem('@tmdb-api:movies');
 
         const verifySoraged = moviesStoraged
@@ -135,21 +139,18 @@ const BannerMovie: React.FC<Props> = () => {
         const findSameId = verifySoraged.find((movie: any) => movie.id === id);
 
         if (findSameId) {
-            setMessageAdd('Favoritado')
+            return true;
         } else {
-            setMessageAdd('Add +')
+            return false;
         }
 
-    }, [])
+    }
 
 
-
-
-
-    function handleSelectedCategory(categoryId: number) {
+    const handleSelectedCategory = useCallback((categoryId: number) => {
         setOpenMenu(false);
         setGenresSelected(categoryId);
-    }
+    }, []);
 
     const handleFavoriteMovie = useCallback((movieObjectTeste: Films) => {
         const moviesStoraged = localStorage.getItem('@tmdb-api:movies');
@@ -169,6 +170,7 @@ const BannerMovie: React.FC<Props> = () => {
         localStorage.setItem('@tmdb-api:movies', JSON.stringify(newStoraged));
 
         setStorageLength(newStoraged.length);
+        setMessageAdd('Favoritado');
 
     }, [])
 
@@ -261,7 +263,7 @@ const BannerMovie: React.FC<Props> = () => {
                                 <AddButton
                                     onClick={() => handleFavoriteMovie(movieObjectTeste)}
                                 >
-                                    {messageAdd}
+                                    {messageAdd ? messageAdd : 'Add +'}
                                 </AddButton>
                             </div>
                         </Container>

@@ -414,9 +414,8 @@ export const HeartFavoriteIcon = styled(Heart)`
 
 `
 export const ArrowLeftIcon = styled(LeftArrow)`
-    left: 0;
-    width: 20px;
-    height: 20px;
+    width: 50px;
+    height: 50px;
     color: #fff;
 `;
 
@@ -426,14 +425,16 @@ export const Arrows = styled.div`
     align-items: center;
     position: absolute;
     justify-content: space-between;
+    bottom: 10vh;
 
     z-index: 1000;
 `;
 
 export const ArrowRightIcon = styled(RightArrow)`
-    width: 20px;
-    height: 20px;
+    width: 50px;
+    height: 50px;
     color: #fff;
+
 `;
 
 export const SideBarMenu = styled.div`

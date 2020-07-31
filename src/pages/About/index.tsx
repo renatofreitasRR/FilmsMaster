@@ -11,7 +11,8 @@ import {
     Genres,
     Companies,
     Divisor,
-    StarCount
+    StarCount,
+    StarCountMiddle
 } from './styles';
 
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -69,8 +70,19 @@ const About: React.FC = () => {
     let rows = [];
 
     if (movie) {
-        for (let i = 0; i < movie.vote_average; i++) {
-            rows.push(<StarCount />);
+        const verifyPoint = String(movie.vote_average);
+        const point = verifyPoint.includes('.');
+
+        if (point) {
+            for (let i = 0; i < movie.vote_average - 1; i++) {
+                rows.push(<StarCount />);
+            }
+            rows.push(<StarCountMiddle />);
+        } else {
+
+            for (let i = 0; i < movie.vote_average; i++) {
+                rows.push(<StarCount />);
+            }
         }
     }
 

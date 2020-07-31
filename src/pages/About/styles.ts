@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { KeyboardArrowLeft } from 'styled-icons/material-sharp';
-import { Star } from 'styled-icons/boxicons-solid';
+import { Star, StarHalf } from 'styled-icons/boxicons-solid';
 
 export const Header = styled.header`
     color: var(--white);
@@ -111,6 +111,12 @@ export const Divisor = styled.div`
 `;
 
 export const StarCount = styled(Star)`
+    width: 13px;
+    height: 12px;
+    color: #EFFF37;
+`;
+
+export const StarCountMiddle = styled(StarHalf)`
     width: 13px;
     height: 12px;
     color: #EFFF37;
