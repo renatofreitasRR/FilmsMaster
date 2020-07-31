@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FormEvent } from 'react';
+import React, { useEffect, useState, FormEvent, useCallback } from 'react';
 
 import {
     Container,
@@ -60,7 +60,7 @@ const BannerMovie: React.FC<Props> = () => {
     const [pages, setPages] = useState(1);
     const [searchMovies, setSearchMovies] = useState('');
     const [messageError, setMessageError] = useState('');
-    // const [messageAdd, setMessageAdd] = useState('Add +');
+    const [messageAdd, setMessageAdd] = useState('Add +');
     const [storageLength, setStorageLength] = useState(verifySoraged.length);
     const [movieObjectTeste, setMovieObjectTeste] = useState({
         id: 0,
@@ -79,7 +79,23 @@ const BannerMovie: React.FC<Props> = () => {
                     title: response.data.results[0].title,
                     poster_path: `https://image.tmdb.org/t/p/original${response.data.results[0].poster_path}`,
                 });
-                console.log(response.data);
+
+                const moviesStoraged = localStorage.getItem('@tmdb-api:movies');
+
+                const verifySoraged = moviesStoraged
+                    ? JSON.parse(moviesStoraged)
+                    : []
+
+                const findSameId = verifySoraged.find((movie: any) => movie.id === response.data.results[0].id);
+
+                if (findSameId) {
+                    setMessageAdd('Favoritado')
+                    return
+                } else {
+                    setMessageAdd('Add +')
+                }
+
+
             })
     }, [genresSelected, pages]);
 
@@ -92,8 +108,7 @@ const BannerMovie: React.FC<Props> = () => {
     }, []);
 
 
-    function handleSelectedMovie(backdrop_path: string, title: string, poster_path: string, id: number, movie: any) {
-
+    const handleSelectedMovie = useCallback((backdrop_path: string, title: string, poster_path: string, id: number, movie: any) => {
         if (backdrop_path === 'null') {
             setMovieObjectTeste({
                 id,
@@ -111,8 +126,24 @@ const BannerMovie: React.FC<Props> = () => {
         }
 
 
+        const moviesStoraged = localStorage.getItem('@tmdb-api:movies');
 
-    }
+        const verifySoraged = moviesStoraged
+            ? JSON.parse(moviesStoraged)
+            : []
+
+        const findSameId = verifySoraged.find((movie: any) => movie.id === id);
+
+        if (findSameId) {
+            setMessageAdd('Favoritado')
+        } else {
+            setMessageAdd('Add +')
+        }
+
+    }, [])
+
+
+
 
 
     function handleSelectedCategory(categoryId: number) {
@@ -120,8 +151,7 @@ const BannerMovie: React.FC<Props> = () => {
         setGenresSelected(categoryId);
     }
 
-    function handleFavoriteMovie(movieObjectTeste: Films) {
-
+    const handleFavoriteMovie = useCallback((movieObjectTeste: Films) => {
         const moviesStoraged = localStorage.getItem('@tmdb-api:movies');
 
         const verifySoraged = moviesStoraged
@@ -139,12 +169,13 @@ const BannerMovie: React.FC<Props> = () => {
         localStorage.setItem('@tmdb-api:movies', JSON.stringify(newStoraged));
 
         setStorageLength(newStoraged.length);
-    }
+
+    }, [])
 
 
-    async function handleSearchMovie(event: FormEvent<HTMLFormElement>): Promise<void> {
+
+    const handleSearchMovie = useCallback((event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
         api.get(`search/movie?query=${searchMovies}&api_key=${apiKey}&language=pt-BR`)
             .then(response => {
                 setSearchMovies('');
@@ -163,8 +194,9 @@ const BannerMovie: React.FC<Props> = () => {
                 }
 
             })
+    }, [searchMovies])
 
-    }
+
 
 
     return (
@@ -229,7 +261,7 @@ const BannerMovie: React.FC<Props> = () => {
                                 <AddButton
                                     onClick={() => handleFavoriteMovie(movieObjectTeste)}
                                 >
-                                    Add + {/* {messageAdd} */}
+                                    {messageAdd}
                                 </AddButton>
                             </div>
                         </Container>

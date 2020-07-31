@@ -13,7 +13,7 @@ interface Movies {
     backdrop_path?: string;
     title?: string | undefined;
     popularity?: number;
-    poster_path: string;
+    poster_path?: string;
 }
 
 
@@ -30,7 +30,7 @@ const Favorites: React.FC = () => {
 
         setFavoriteMovies(verifyStoraged);
 
-    }, []) 
+    }, [])
 
 
     function handleExcluseMovie(id: number) {
@@ -44,7 +44,10 @@ const Favorites: React.FC = () => {
     }
 
     function excluseAll() {
-        localStorage.clear();
+
+        localStorage.setItem('@tmdb-api:movies', JSON.stringify([]));
+        setFavoriteMovies([]);
+
     }
 
 
